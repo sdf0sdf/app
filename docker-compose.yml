@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  database:
+    image: postgres:latest
+    network_mode: "host"
+    environment:
+        POSTGRES_USER: postgres
+        POSTGRES_PASSWORD: hjkhjk
+        POSTGRES_DB: clientx_org_sdf0sdf_dev
+        SCHEMA: public
+        APPUSER: app_user
+    volumes:
+      - ./db/initdb.sh:/docker-entrypoint-initdb.d/initdb.sh
+      - ./db/pgdata:/var/lib/postgresql/data
+    restart: always
+
+  webserver:
+    build: 
+      context: ./webserver
+    image: webserver
+    network_mode: "host"
+    # mount point for application in tomcat
+    volumes:
+      - ./serviceapp/target/ServiceApp:/usr/local/tomcat/webapps/ServiceApp
+    # open ports for tomcat and remote debugging
+    ports:
+      - "8080:8080" 
+      - "8000:8000"
+    command: sh -c "
+     sleep 15 &&
+     catalina.sh run"
+    restart: always
