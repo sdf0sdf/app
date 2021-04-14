@@ -13,7 +13,20 @@ docker-compose down
 To view the logs:
 
 docker container logs linuxtomcatapp_tomcat_1
+
+To run terminal:
+
+docker exec -ti app_webserver_1 bash
+
+To install new packages:
+
+sudo docker exec app_webserver_1 bash -c "apt-get -y update" 
+docker exec app_webserver_1 bash -c "apt-get -y install lsof"
+
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+To ckeck ports:
+
+sudo lsof -i -P -n | grep 8080
 
 To check postgres:
 

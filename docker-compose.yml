@@ -23,11 +23,4 @@ services:
     # mount point for application in tomcat
     volumes:
       - ./serviceapp/target/ServiceApp:/usr/local/tomcat/webapps/ServiceApp
-    # open ports for tomcat and remote debugging
-    ports:
-      - "8080:8080" 
-      - "8000:8000"
-    command: sh -c "
-     sleep 15 &&
-     catalina.sh run"
     restart: always
