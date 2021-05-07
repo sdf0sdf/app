@@ -24,3 +24,12 @@ services:
     volumes:
       - ./serviceapp/target/ServiceApp:/usr/local/tomcat/webapps/ServiceApp
     restart: always
+    
+  frontend:
+    build: 
+      context: ./serviceapp-frontend
+    image: serviceapp-frontend
+    network_mode: "host"
+    volumes:    
+      - ./serviceapp-frontend/src:/app/src
+    restart: always
